@@ -1,4 +1,5 @@
-import React from "react";
+import {React, useState, useEffect} from "react";
+import productsAPi from "./APIs/productsAPI";
 import userAPI from "./APIs/userAPI";
 import wishlistAPI from "./APIs/wishlistAPI";
 import historyAPI from "./APIs/historyAPI";
@@ -10,33 +11,41 @@ import Skeleton from "./Router/Skeleton";
 
 
 function App() {
+  const [products,setProducts] = useState([]);
 
-async function register(data){
-  try{
-    const result = await userAPI.register(data);
-    return ({success: true, result})
-  }
-  catch(err){
-    console.log("Error in registration in app.js:", err)
-    return ({success: false, error: err})
-  }
-}
 
-async function login(data){
-  try{
-    const result = await userAPI.login(data);
-    return ({success: true, result})
+  useEffect(()=> {
+    async function getAllProducts(){
+      const result = await productsAPi.getAll();
+        setProducts(result.data);
+      }
+      getAllProducts();
+    },[]);
+
+  async function register(data){
+    try{
+      const result = await userAPI.register(data);
+      return ({success: true, result})
+    }
+    catch(err){
+      return ({success: false, error: err})
+    }
   }
-  catch(err){
-    console.log("Error in login in app.js:", err)
-    return {success: false, error:err}
+
+  async function login(data){
+    try{
+      const result = await userAPI.login(data);
+      return ({success: true, result})
+    }
+    catch(err){
+      return {success: false, error:err}
+    }
   }
-}
 
   return (
 
     <div>
-    <Skeleton login={login} register={register}/>
+    <Skeleton login={login} register={register} products={products}/>
     </div>
 
   );
