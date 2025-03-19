@@ -1,17 +1,18 @@
 import {React, useState, useEffect} from "react";
-import productsAPi from "./APIs/productsAPI";
-import userAPI from "./APIs/userAPI";
-import wishlistAPI from "./APIs/wishlistAPI";
-import historyAPI from "./APIs/historyAPI";
-import RegistrationForm from "./Forms/Register";
-import LoginForm from "./Forms/Login";
+import productsAPi from "../APIs/productsAPI";
+import userAPI from "../APIs/userAPI";
+import wishlistAPI from "../APIs/wishlistAPI";
+import historyAPI from "../APIs/historyAPI";
+import RegistrationForm from "../Forms/Register";
+import LoginForm from "../Forms/Login";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter,Routes, Route } from "react-router-dom";
-import Skeleton from "./Router/Skeleton";
-
+import Skeleton from "../Router/Skeleton";
+import Navbar from "../Router/Nav";
 
 function App() {
   const [products,setProducts] = useState([]);
+  const [isLoggedIn, setLoggedIn] = useState(false)
   const user_id = sessionStorage.user_id;
 
   useEffect(()=> {
@@ -35,6 +36,7 @@ function App() {
   async function login(data){
     try{
       console.log("Here is your login data:", data)
+      setLoggedIn(true)
       const result = await userAPI.login(data);
       
       return ({success: true, result})
@@ -42,6 +44,12 @@ function App() {
     catch(err){
       return {success: false, error:err}
     }
+  }
+
+  function logout(){
+    sessionStorage.removeItem('user_id')
+    setLoggedIn(false)
+    console.log("You have been successfully logged out!")
   }
 
 
@@ -68,6 +76,7 @@ function App() {
   return (
 
     <div>
+    <Navbar logout={logout} isLoggedIn={isLoggedIn}/>
     <Skeleton addToCart={addToCart} login={login} register={register} products={products}/>
     </div>
 
