@@ -1,5 +1,4 @@
 const express = require('express');
-const session = require('express-session')
 const app = express();
 const userRouter = require('./routes/users');
 const historyRouter = require('./routes/history');
@@ -8,13 +7,12 @@ const PORT = process.env.PORT || 3001;
 const cors = require('cors');
 
 
-app.use(cors());
 app.use(express.json());
-app.use(session({
-    secret: 'MAKESHIFTSECRETKEY',
-    resave: false,
-    saveUninitialized: false,
-    cookie: { secure: true } 
+
+
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
 }));
 
 app.use('/users',userRouter);

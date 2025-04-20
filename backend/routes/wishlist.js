@@ -1,6 +1,27 @@
 const express = require('express')
 const router = express.Router()
 const Wishlist = require('../models/wishlist')
+const authenticateUser = require ('../middleware/auth.js')
+
+router.get('/', authenticateUser,async function(req,res,next){
+ 
+    try{
+        const user = req.user;
+        console.log("Request jwt user at /get cart:", user)
+
+    
+        const result = await Wishlist.get(user.user_id);
+        console.log("result for user cart items on backend", result)
+        return res.status(200).json({success: true, result})
+
+    }
+
+    catch(err){
+        console.log("Error in /wishlist/get on backend:", err)
+        return next(err)
+    }
+})
+
 
 router.post('/add', async function(req,res,next){
     const {
@@ -11,7 +32,7 @@ router.post('/add', async function(req,res,next){
         category,
         user_id,
         title} = req.body;
-        /** Can I get user id from request body instead?: */
+        /** Can I get user id from request session instead?: */
     //const user_id = req.session.user_id;
 
     try{

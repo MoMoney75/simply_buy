@@ -12,8 +12,11 @@ import Navbar from "../Router/Nav";
 
 function App() {
   const [products,setProducts] = useState([]);
-  const [isLoggedIn, setLoggedIn] = useState(false)
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [cart, setCart] = useState([]);
+  const [token, setToken] = useState(null)
   const user_id = sessionStorage.user_id;
+
 
   useEffect(()=> {
     async function getAllProducts(){
@@ -22,6 +25,33 @@ function App() {
       }
       getAllProducts();
     },[]);
+
+ 
+
+    useEffect(()=> {
+      async function fetchCart(){
+        if (!user_id) {
+          console.log("No user_id found, skipping cart fetch.");
+          return; // Avoid fetching if user is not logged in
+        }
+        const result = await wishlistAPI.get();
+        console.log("cart in app.js:", result)
+          setCart(result);
+        }
+        fetchCart();
+      },[user_id]);
+  
+  //  async function fetchCart(user_ids){
+
+  //   try{
+  //   console.log(user_id)
+  //   const result = await wishlistAPI.get(user_id);
+  //   console.log("fetch cart function result:", result)
+  //   }
+  //   catch(err){
+  //     console.log(err)
+  //   }
+  //  }
 
   async function register(data){
     try{
@@ -38,7 +68,13 @@ function App() {
       console.log("Here is your login data:", data)
       setLoggedIn(true)
       const result = await userAPI.login(data);
+
+      const token = result.token
+      localStorage.setItem('token',token)
+
+      setToken(token)
       
+      console.log("token set at login", token)
       return ({success: true, result})
     }
     catch(err){
@@ -46,10 +82,21 @@ function App() {
     }
   }
 
-  function logout(){
+    async function logout(){
+    try{
+    const result = await userAPI.logout();
     sessionStorage.removeItem('user_id')
+    localStorage.removeItem('token')
     setLoggedIn(false)
-    console.log("You have been successfully logged out!")
+    console.log("You have been successfully logged out!", result)
+
+    return result;
+    }
+
+    catch(err){
+      return {success: false, error: err}
+
+    }
   }
 
 
@@ -73,11 +120,13 @@ function App() {
     }
   }
 
+  
+
   return (
 
     <div>
     <Navbar logout={logout} isLoggedIn={isLoggedIn}/>
-    <Skeleton addToCart={addToCart} login={login} register={register} products={products}/>
+    <Skeleton  token={token} cart={cart} addToCart={addToCart} login={login} register={register} products={products}/>
     </div>
 
   );

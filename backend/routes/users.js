@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/users.js');
-const { error } = require('console');
+const authenticateUser = require('../middleware/auth.js')
+const jwt = require('jsonwebtoken');
 
 /* File is responsible for all routes and methods relating to the User
    Model (register, authenticate, delete, and logout) 
@@ -12,10 +13,11 @@ router.post('/register', async function(req,res,next){
 
     try{
     /* Add json schema authentication first to verify validations */
-     const user = await User.Register(first_name,last_name,username,password)
+        const user = await User.Register(first_name,last_name,username,password)
 
         console.log("new user at registration:", user, user.user_id)
-        req.session.user = user.user_id
+        req.session.user = {id: user.user_id}
+        req.session.save();
         return res.status(200).json({success : true, user})
 
     }
@@ -30,10 +32,16 @@ router.post('/login', async function(req,res,next){
     const {username, password} = req.body;
     try{
         const user = await User.Authenticate(username,password)
-        console.log("user at login on backend:", user, user.user_id)
-        /* Add user to session storage */
-        req.session.user = user.user_id
-        return res.status(200).json({success: true, user})
+        if(!user){
+            console.log('failed login attempt')
+        }
+
+        const token = jwt.sign(user,'fakesecret')
+        
+        console.log("Decoded JWT created at login:", token, jwt.decode(token))
+
+        
+        return res.status(200).json({success: true, user, token})
         
       
     }
@@ -44,7 +52,7 @@ router.post('/login', async function(req,res,next){
 })
 
     router.post('/delete', async function(req,res,next){
-        const user_id = req.session.user_id
+        const user_id = req.session.user.id
         console.log("user_id before deleting account on backend:", user_id)
         try{
             const result = await User.Delete(user_id);
@@ -59,10 +67,13 @@ router.post('/login', async function(req,res,next){
 
     router.post('/logout', async function (req,res,next){
         try{
+            console.log("SESSION DATA BEFORE DESTROYING:", req.session)
             req.session.destroy(function(e){
                 if(e){
+                    console.log("Error logging user out on backend:", e)
                     res.status(500).json({success:false, error: e.message})
                 }
+                console.log("User logged out on backend, user sesssion destroyed:", req.session)
                 return res.status(200).json({success: true, message:"Successfully logged out!"
                 })
             })

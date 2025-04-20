@@ -9,7 +9,7 @@ class productsAPi{
         const params = (method === 'get') ? data : {};
         try{
             const result = await axios.get(url,method,data,params);
-            console.log("Result in productsAPI:", result);
+            //console.log("Result in productsAPI:", result);
             return result;
         }
 

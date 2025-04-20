@@ -5,6 +5,15 @@ const db = require('../db')
     user's wishlist while "item_id" refers to the id given to an item in the API***** 
 */
 class Wishlist {
+    
+    static async get(user_id){
+    
+            const result = await db.query(`SELECT * FROM wishlist_items
+                                           WHERE user_id = $1`, [user_id])
+
+            return result.rows;
+    }
+
     static async add(item_id,price,quantity,image,category,user_id,title){
         const result = await db.query(`INSERT INTO wishlist_items(item_id,price,quantity,
                                        image,category,user_id,title)

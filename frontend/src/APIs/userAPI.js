@@ -7,7 +7,12 @@ class userAPI {
         const params = (method === 'get') ? data : {};
 
         try{
-            const result = (await axios({url,method,data,params})).data;
+            const result = (await axios({
+                url,
+                method,
+                data,
+                params, 
+            })).data;
             return result;
         }
         catch(err){
@@ -24,7 +29,7 @@ class userAPI {
     }
 
     static async login(data){
-        const result = await this.request('users/login', data, 'post')
+        const result = await this.request('users/login', data, 'post',)
         console.log("User login in frontend:", result)
         return result;
 
@@ -33,6 +38,11 @@ class userAPI {
     static async delete(data){
         const result = await this.request('users/delete', data, 'post');
         console.log("User deleted in frontend:", result);
+        return result;
+    }
+
+    static async logout(data){
+        const result = await this.request('users/logout',data, 'post');
         return result;
     }
 }

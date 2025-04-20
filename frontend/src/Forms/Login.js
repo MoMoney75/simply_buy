@@ -1,6 +1,6 @@
-import {React, useState} from "react";
+import {React, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
-function Login({login}){
+function Login({login, token}){
     const navigate = useNavigate();
     const INITIAL_STATE = {
         username: '',
@@ -10,10 +10,16 @@ function Login({login}){
     const [formData,setFormData] = useState(INITIAL_STATE)
     const [errors,setErrors] = useState([])
 
+    useEffect(() => {
+        const token = localStorage.getItem('token')
+        if(token) navigate('/products')
+    }, [])
+
     function handleChange(evt){
         const {name, value} = evt.target;
         setFormData(data => ({...data, [name]: value}))
     }
+
     async function handleSubmit(evt){
         evt.preventDefault();
         const result = await login(formData);
@@ -25,7 +31,6 @@ function Login({login}){
             return;
         }
         setErrors([])
-        sessionStorage.setItem('user_id', result.result.user.user_id)
         navigate('/products')
         setFormData(INITIAL_STATE);
         return result;

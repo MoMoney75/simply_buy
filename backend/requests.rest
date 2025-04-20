@@ -1,0 +1,14 @@
+POST http://localhost:3001/users/login
+Content-Type: application/json
+
+{
+    "username": "tester1",
+    "password": "tester1"
+}
+
+###
+
+
+
+GET http://localhost:3001/wishlist
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoxLCJmaXJzdF9uYW1lIjoidGVzdGVyMSIsImxhc3RfbmFtZSI6InRlc3RlcjEiLCJ1c2VybmFtZSI6InRlc3RlcjEiLCJpYXQiOjE3NDUxNjg4OTZ9.ks1pE3Ogv-EJv_DNJtB7xx4KM6SWZNieEs6sAuRa2I0
