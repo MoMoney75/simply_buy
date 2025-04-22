@@ -41,10 +41,11 @@ class userAPI {
         return result;
     }
 
-    static async logout(data){
-        const result = await this.request('users/logout',data, 'post');
-        return result;
-    }
+    /* Logout function is client side only at the moment */
+    // static async logout(data){
+    //     const result = await this.request('users/logout',data, 'post');
+    //     return result;
+    // }
 }
 
 export default userAPI;

@@ -5,10 +5,11 @@ function Cart(){
       const [cart, setCart] = useState([]);
 
       useEffect(()=> {
+
           async function fetchCart(){
             const result = await wishlistAPI.get();
             console.log("cart in app.js:", result)
-              setCart(result);
+              setCart(result.result);
             }
             fetchCart();
           },[]);
@@ -16,7 +17,22 @@ function Cart(){
     console.log("HERE IS YOUR CART:", cart)
     return(
 
+      <div>
         <h1>Here is your cart!</h1>
+
+        <ol>
+        {cart.map((item) =>(
+          <li>
+               <h3>{item.title}</h3>
+                    <img src={item.image}
+                    alt={item.title} width={100} height={100}/>
+                    <p>${item.price}</p>
+
+          </li>
+        ))}
+        </ol>
+
+        </div>
     );
 
 }

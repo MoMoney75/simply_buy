@@ -30,10 +30,7 @@ function App() {
 
     useEffect(()=> {
       async function fetchCart(){
-        if (!user_id) {
-          console.log("No user_id found, skipping cart fetch.");
-          return; // Avoid fetching if user is not logged in
-        }
+       
         const result = await wishlistAPI.get();
         console.log("cart in app.js:", result)
           setCart(result);
@@ -41,17 +38,7 @@ function App() {
         fetchCart();
       },[user_id]);
   
-  //  async function fetchCart(user_ids){
-
-  //   try{
-  //   console.log(user_id)
-  //   const result = await wishlistAPI.get(user_id);
-  //   console.log("fetch cart function result:", result)
-  //   }
-  //   catch(err){
-  //     console.log(err)
-  //   }
-  //  }
+ 
 
   async function register(data){
     try{
@@ -73,7 +60,7 @@ function App() {
       localStorage.setItem('token',token)
 
       setToken(token)
-      
+
       console.log("token set at login", token)
       return ({success: true, result})
     }
@@ -84,13 +71,12 @@ function App() {
 
     async function logout(){
     try{
-    const result = await userAPI.logout();
-    sessionStorage.removeItem('user_id')
-    localStorage.removeItem('token')
-    setLoggedIn(false)
-    console.log("You have been successfully logged out!", result)
+      sessionStorage.removeItem('user_id')
+      localStorage.removeItem('token')
+      setLoggedIn(false)
+      console.log("You have been successfully logged out!")
 
-    return result;
+      return {success: true, message: "User successfully logged out!"};
     }
 
     catch(err){

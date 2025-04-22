@@ -12,6 +12,7 @@ router.get('/', authenticateUser,async function(req,res,next){
     
         const result = await Wishlist.get(user.user_id);
         console.log("result for user cart items on backend", result)
+        
         return res.status(200).json({success: true, result})
 
     }

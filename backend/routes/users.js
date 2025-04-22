@@ -15,10 +15,8 @@ router.post('/register', async function(req,res,next){
     /* Add json schema authentication first to verify validations */
         const user = await User.Register(first_name,last_name,username,password)
 
-        console.log("new user at registration:", user, user.user_id)
-        req.session.user = {id: user.user_id}
-        req.session.save();
-        return res.status(200).json({success : true, user})
+        const token = jwt.sign(user,'fakesecret')
+        return res.status(200).json({success : true, user, token})
 
     }
     catch(err){
@@ -30,12 +28,10 @@ router.post('/register', async function(req,res,next){
 
 router.post('/login', async function(req,res,next){
     const {username, password} = req.body;
-    try{
-        const user = await User.Authenticate(username,password)
-        if(!user){
-            console.log('failed login attempt')
-        }
 
+    try{
+
+        const user = await User.Authenticate(username,password)
         const token = jwt.sign(user,'fakesecret')
         
         console.log("Decoded JWT created at login:", token, jwt.decode(token))
@@ -65,22 +61,14 @@ router.post('/login', async function(req,res,next){
         }
     })
 
-    router.post('/logout', async function (req,res,next){
-        try{
-            console.log("SESSION DATA BEFORE DESTROYING:", req.session)
-            req.session.destroy(function(e){
-                if(e){
-                    console.log("Error logging user out on backend:", e)
-                    res.status(500).json({success:false, error: e.message})
-                }
-                console.log("User logged out on backend, user sesssion destroyed:", req.session)
-                return res.status(200).json({success: true, message:"Successfully logged out!"
-                })
-            })
-        }
-        catch(err){
-            return next(err)
-        }
-    })
+    /* For simplicty, logout is only handled on the client side for now */
+    // router.post('/logout', async function (req,res,next){
+    //     try{
+    //        res.
+    //     }
+    //     catch(err){
+    //         return next(err)
+    //     }
+    // })
 
     module.exports = router;
