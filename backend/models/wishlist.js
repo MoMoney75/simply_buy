@@ -21,7 +21,12 @@ class Wishlist {
                                        RETURNING *`, 
         [item_id,price,quantity,image,category,user_id,title])
                                  
+        if(!user_id){
+            throw new Error("Please login into continue")
+        }
+        else{
         return result.rows[0]
+        }
     }
 
     /* Deletes an item from a user's wishlist */

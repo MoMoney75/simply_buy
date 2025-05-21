@@ -28,7 +28,8 @@ class wishlistAPI {
         return result;
         }
         catch(err){
-            console.log("Error making request in wishlistAPI.js:", err);
+            console.log("Error making request in wishlistAPI.js:", err.response.data);
+            return err.response.data
         }
     }
 

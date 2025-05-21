@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 function ProductDetails({addToCart}){
 const {id} = useParams();
 const [product,setProduct] = useState({});
+const [errors, setErrors] = useState([])
 const user_id = sessionStorage.getItem('user_id')
 
 useEffect(()=>{
@@ -36,7 +37,7 @@ return (
                   user_id: user_id,
                   title: product.title
                 });
-            }}>Add to cart</button>
+                 }}>Add to cart</button>
                 </li>
 
 

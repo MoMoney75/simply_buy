@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function Navbar({isLoggedIn,logout}){
 
-    if(!isLoggedIn){
+   
+
+    if(isLoggedIn === false){
     return(
         <nav>
             <ul>
@@ -17,7 +19,7 @@ function Navbar({isLoggedIn,logout}){
     )
 }
 
-else{
+
     return(
         <nav>
         <ul>
@@ -28,7 +30,6 @@ else{
         </ul>
     </nav>
     )
-}
 }
 
 

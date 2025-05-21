@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { BrowserRouter,Routes, Route } from "react-router-dom";
 import Skeleton from "../Router/Skeleton";
 import Navbar from "../Router/Nav";
+import {jwtDecode}from 'jwt-decode'
 
 function App() {
   const [products,setProducts] = useState([]);
@@ -17,6 +18,28 @@ function App() {
   const [token, setToken] = useState(null)
   const user_id = sessionStorage.user_id;
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    const expirationTime = parseInt(localStorage.getItem('token_expiration'),10)
+
+    if(token && expirationTime){
+      const currentTime = Date.now();
+
+  
+
+      if(currentTime > expirationTime){
+        localStorage.removeItem('token');
+        localStorage.removeItem('token_expiration')
+        setLoggedIn(false)
+        console.log("WARNING, TOKEN EXPIRED, USER LOGGED OUT")
+      }
+
+      else{
+        setLoggedIn(true)
+        setToken(token)
+        }
+    }
+  },[])
 
   useEffect(()=> {
     async function getAllProducts(){
@@ -51,19 +74,21 @@ function App() {
   }
 
   async function login(data){
-    try{
-      console.log("Here is your login data:", data)
-      setLoggedIn(true)
+    try{      
       const result = await userAPI.login(data);
-
       const token = result.token
-      localStorage.setItem('token',token)
+      const decodedToken = jwtDecode(token)
+      const expireTime = decodedToken.exp * 1000;
+      
+        localStorage.setItem('token',token)
+        localStorage.setItem('token_expiration', expireTime)
+      
+          setToken(token)
+          setLoggedIn(true)
+      
+            return ({success: true, result})
+        }
 
-      setToken(token)
-
-      console.log("token set at login", token)
-      return ({success: true, result})
-    }
     catch(err){
       return {success: false, error:err}
     }
@@ -73,6 +98,7 @@ function App() {
     try{
       sessionStorage.removeItem('user_id')
       localStorage.removeItem('token')
+      localStorage.removeItem('token_expiration')
       setLoggedIn(false)
       console.log("You have been successfully logged out!")
 
@@ -101,18 +127,34 @@ function App() {
     }
 
     catch(err){
+      if(err.status === 401){
+        localStorage.removeItem('token');
+        localStorage.removeItem('token_expiration');
+        setLoggedIn(false);
+        setToken(null);
+      }
       console.log("Error on frontend while adding to cart:", err)
       return ({success: false, error: err})
     }
   }
 
-  
+  async function deleteFromCart(id) {
+    const item_id = +id;
+    try{
+      const result = await wishlistAPI.delete({item_id})
+      return ({success: true, result})
+    }
+
+    catch(err){
+      return ({success: false, error: err})
+    }
+  }
 
   return (
 
     <div>
     <Navbar logout={logout} isLoggedIn={isLoggedIn}/>
-    <Skeleton  token={token} cart={cart} addToCart={addToCart} login={login} register={register} products={products}/>
+    <Skeleton  token={token} cart={cart} addToCart={addToCart} deleteFromCart={deleteFromCart}login={login} register={register} products={products}/>
     </div>
 
   );

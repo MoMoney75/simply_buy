@@ -6,13 +6,13 @@ import Home from "../Home";
 import CategoriesPage from "../Categories";
 import ProductDetails from "../Details";
 import Cart from "../Cart";
-function Skeleton({token, cart, login, register,products, addToCart}){
+function Skeleton({token, cart, login, register,products, addToCart, deleteFromCart}){
 
     return(
 
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<Cart cart={cart}/>} />
+            <Route path="/cart" element={<Cart cart={cart} deleteFromCart={deleteFromCart}/>} />
             <Route path="/login" element={<Login login={login} token={token}/>}/>
             <Route path="/register" element={<RegistrationForm register={register}/>}/>
             <Route path="/products" element={<Products products={products}/>}/>

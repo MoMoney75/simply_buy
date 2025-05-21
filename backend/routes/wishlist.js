@@ -8,7 +8,7 @@ router.get('/', authenticateUser,async function(req,res,next){
     try{
         const user = req.user;
         console.log("Request jwt user at /get cart:", user)
-
+        
     
         const result = await Wishlist.get(user.user_id);
         console.log("result for user cart items on backend", result)
@@ -24,20 +24,21 @@ router.get('/', authenticateUser,async function(req,res,next){
 })
 
 
-router.post('/add', async function(req,res,next){
+router.post('/add', authenticateUser, async function(req,res,next){
+
+    const user = req.user
     const {
         item_id,
         price,
         quantity,
         image,
         category,
-        user_id,
-        title} = req.body;
-        /** Can I get user id from request session instead?: */
-    //const user_id = req.session.user_id;
+        title
+        } = req.body;
 
     try{
-    const result = await Wishlist.add(item_id,price,quantity,image,category,user_id,title)
+
+    const result = await Wishlist.add(item_id,price,quantity,image,category,user.user_id,title)
     console.log("Attempting to add item to wishlist on backend /add:", result)
     return res.status(200).json({success: true, result})
     }
@@ -48,12 +49,14 @@ router.post('/add', async function(req,res,next){
     }
 })
 
-router.post('/delete', async function(req,res,next){
-    const user_id = req.session.user_id;
-    const item_id = req.body;
+router.post('/delete', authenticateUser, async function(req,res,next){
+    const user = req.user
+    console.log("user in wishlist /delete in route handler:", user)
+    const item_id = req.body.item_id;
 
     try{
-        const result = await Wishlist.delete(user_id,item_id);
+        const result = await Wishlist.delete(user.user_id,item_id);
+        console.log("Result in deleting item from cart:", result)
         return res.status(200).json({success:true, result})
     }
     catch(err){

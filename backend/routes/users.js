@@ -32,7 +32,7 @@ router.post('/login', async function(req,res,next){
     try{
 
         const user = await User.Authenticate(username,password)
-        const token = jwt.sign(user,'fakesecret')
+        const token = jwt.sign(user,'fakesecret', {expiresIn : '1h' })
         
         console.log("Decoded JWT created at login:", token, jwt.decode(token))
 
