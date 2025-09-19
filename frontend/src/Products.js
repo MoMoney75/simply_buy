@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-function Products({products}){
+function Products({addToCart,products}){
+const user_id = sessionStorage.getItem('user_id')
+
 return(
     <div>
         <h1>HERE ARE ALL YOUR PRODUCTS</h1>
@@ -14,7 +16,17 @@ return(
                     <div>{product.rating.rate}stars ({product.rating.count}reviews)</div>
                     <p>${product.price}</p>
                     <Link to={`/products/product/${product.id}`}>View</Link>
-                    <Link>Add to cart</Link>
+                      <button onClick={()=>{
+                addToCart({
+                  item_id : product.id,
+                  price : product.price,
+                  quantity: 1,
+                  image: product.image,
+                  category: product.category,
+                  user_id: user_id,
+                  title: product.title
+                });
+                 }}>Add to cart</button>
                 </li>
             ))}
         </ol>

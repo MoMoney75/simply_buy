@@ -56,10 +56,10 @@ function App() {
        
         const result = await wishlistAPI.get();
         console.log("cart in app.js:", result)
-          setCart(result);
+          setCart(result.result);
         }
         fetchCart();
-      },[user_id]);
+      },[]);
   
  
 
@@ -139,10 +139,15 @@ function App() {
   }
 
   async function deleteFromCart(id) {
+
+  //  we have access to item id from cart array
+  // 
     const item_id = +id;
+    console.log("item id in app.js", item_id)
     try{
-      const result = await wishlistAPI.delete({item_id})
-      return ({success: true, result})
+        const result = await wishlistAPI.delete({item_id})
+        console.log("result in app.js deletefromCart:", result)
+        return ({success: true, result})
     }
 
     catch(err){

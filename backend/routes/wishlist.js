@@ -51,7 +51,7 @@ router.post('/add', authenticateUser, async function(req,res,next){
 
 router.post('/delete', authenticateUser, async function(req,res,next){
     const user = req.user
-    console.log("user in wishlist /delete in route handler:", user)
+    console.log("user in wishlist /delete in route handler:", user.user_id)
     const item_id = req.body.item_id;
 
     try{

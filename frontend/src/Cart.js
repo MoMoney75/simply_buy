@@ -27,6 +27,24 @@ function Cart({deleteFromCart}){
           },[]);
       
     console.log("HERE IS YOUR CART:", cart)
+
+    async function handleDelete(id){
+      console.log("id in Cart.js handleDelete", id)
+
+      const result = await deleteFromCart(id);
+
+      console.log("result inside handleDelete:", result)
+
+      /** After deleting item from cart, filter out the deleted item
+       * to display the updated cart
+       */
+      if (result.success === true){
+        setCart((prevCart => prevCart.filter((item) => item.item_id !== id)))
+      }
+    
+    }
+
+
     return(
 
       <div>
@@ -44,7 +62,7 @@ function Cart({deleteFromCart}){
                     alt={item.title} width={100} height={100}/>
                     <p>${item.price}</p>
 
-                    <button onClick={ ()=> deleteFromCart(item.item_id)}>Remove</button>
+                    <button onClick={ ()=> handleDelete(item.item_id)}>Remove</button>
 
           </li>
         ))}

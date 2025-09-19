@@ -34,7 +34,12 @@ class Wishlist {
         const result = await db.query(`DELETE FROM wishlist_items WHERE user_id = $1
                                         AND item_id = $2 RETURNING *`, [user_id,item_id])
 
+
+        if(result.rows.length < 1){
+            throw new Error("deleting item in models")
+        }
         return result.rows[0]
+
     }
 
     /* Sort's user's wishlist by price, ascending */
