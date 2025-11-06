@@ -10,7 +10,7 @@ class historyAPI {
             return result;
          }
          catch(err){
-            console.log("Error making request in historyAPI:". err)
+            console.log("Error making request in historyAPI:".err)
          }
     }
 

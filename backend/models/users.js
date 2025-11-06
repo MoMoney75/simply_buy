@@ -6,6 +6,8 @@ const bcrypt = require('bcrypt');
 class User{
     /* Handles new user registration, username and password must be 8-25 characters in length*/
     static async Register(first_name,last_name,username,password){
+
+
         /*Add logic checking for duplicate username */
         const existingUser = await db.query(`SELECT username FROM users WHERE username = $1`,
             [username]
@@ -14,6 +16,8 @@ class User{
         if(existingUser.rows.length > 0){
             throw new Error("User with that username already exists. Please try a different username or login to continue")
         }
+
+        
 
         const hashedPassword = await bcrypt.hash(password,12);
 

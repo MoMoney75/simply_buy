@@ -16,8 +16,10 @@ class userAPI {
             return result;
         }
         catch(err){
-            console.log("Error in frontend request:", err);
-            let message = err.response.data.error.message;
+        
+            let message = err.response.data.error
+            console.log("ERROR BEING CAUGHT IN FRONTEND USER API:", message)
+            console.log("Error in frontend request:", err.response.data.error);
             throw Array.isArray(message) ? message : [message];
         }
     }

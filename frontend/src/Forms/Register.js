@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import UserConext from '../App/App'
 
 function RegistrationForm({register}){
+    const navigate = useNavigate();
     const INITIAL_STATE = {
         first_name: '',
         last_name: '',
@@ -11,7 +12,7 @@ function RegistrationForm({register}){
     }
     const user = useContext(UserConext)
     const [formData, setFormData] = useState(INITIAL_STATE);
-    const [errors, setErrors] = useState([])
+    const [errors, setErrors] = useState({})
 
     function handleChange(evt){
         const {name,value} = evt.target;
@@ -23,40 +24,109 @@ function RegistrationForm({register}){
         evt.preventDefault();
         const result = await register(formData);
 
-        if(result.success !== true){
-            console.log(result)
-                setErrors([result.error])
-                setFormData(INITIAL_STATE)
-                return;
-            };
+        if (result.success !== true) {
+            console.log("Error registering new user:", result)
+            const fieldErrors = {};
+            result.error.forEach(err => {
+            fieldErrors[err.field] = err.message;
+            
+            });
+            setErrors(fieldErrors);
+            return;
+          }
+          
 
         setErrors([])
         sessionStorage.setItem("user_id", result.result.user.user_id)    
         setFormData(INITIAL_STATE)
+        navigate('/products')
         return result;
     }
 
     
     return(
-        <div>
-            <h1>Register here!</h1>
-            {errors.length ? errors.map(e => <p>{e}</p>) : null}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="first_name">First Name</label>
-                <input name="first_name" type="text" value={formData.first_name} onChange={handleChange}/>
+      
+<div>
+        <form className="row g-3 needs-validation" onSubmit={handleSubmit} noValidate>
+       
 
-                <label htmlFor="last_name">Last Name</label>
-                <input name="last_name" type="text" value={formData.last_name} onChange={handleChange}/>
+ <div class="col-md-4">
+ {errors.length > 0 && errors.map(e => <p>{e}</p>)}
 
-                <label htmlFor="username">Username</label>
-                <input name="username" type="text" value={formData.username} onChange={handleChange}></input>
+   <label for="validationCustom01" className="form-label">First Name</label>
+     <input 
+            type="text" 
+            name="first_name" 
+            className={`form-control ${errors.first_name ? 'is-invalid' : ''}`}
+            id="validationCustom01" 
+            value={formData.first_name} onChange={handleChange} required/>
 
-                <label htmlFor="password">Password</label>
-                <input name="password" type="password" value={formData.password} onChange={handleChange}></input>
+        {errors.first_name && (
+        <div className="invalid-feedback">
+        {errors.first_name}
+    </div>
+  )}
 
-          <button type="submit">submit</button>
-            </form>
-        </div>
+     </div>
+
+ <div className="col-md-4">
+   <label for="validationCustom02" className="form-label">Last Name</label>
+   <input 
+    type="text" 
+    name="last_name" 
+    className={`form-control ${errors.last_name ? 'is-invalid' : ''}`}
+    id="validationCustom02"
+    value={formData.last_name} onChange={handleChange} required />
+
+
+{errors.last_name && (
+        <div className="invalid-feedback">
+        {errors.last_name}
+    </div>
+  )}
+ </div>
+
+
+ <div className="col-md-4">
+   <label for="validationCustom02" className="form-label">Username</label>
+   <input 
+    type="text" 
+    name="username" 
+    className={`form-control ${errors.username ? 'is-invalid' : ''}`}
+    id="validationCustom02" 
+    value={formData.username} onChange={handleChange} required />
+
+    {errors.username && (
+        <div className="invalid-feedback">
+        {errors.username}
+    </div>
+  )}
+
+    
+ </div>
+
+
+ <div class="col-md-4">
+   <label for="validationCustom02" className="form-label">Password</label>
+   <input 
+    type="password" 
+    name="password" 
+    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+    id="validationCustom02" 
+    value={formData.password} onChange={handleChange} required />
+
+    {errors.password && (
+        <div className="invalid-feedback">
+        {errors.password}
+    </div>)}
+
+ </div>
+
+ <div className="col-12">
+   <button className="btn btn-primary" type="submit">Register</button>
+ </div>
+</form>
+</div>
     )
 }
 

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"name": "simply_buy-main",
+			"path": "../../.."
+		},
+		{
+			"name": "frontend",
+			"path": "../.."
+		}
+	],
+	"settings": {}
+}

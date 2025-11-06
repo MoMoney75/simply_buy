@@ -5,6 +5,7 @@ function Cart({deleteFromCart}){
       const [cart, setCart] = useState([]);
       const [errors, setError] = useState([])
       const [message, setMessage] = useState('')
+      const [total, setTotal] = useState(0);
 
       useEffect(()=> {
 
@@ -27,6 +28,24 @@ function Cart({deleteFromCart}){
           },[]);
       
     console.log("HERE IS YOUR CART:", cart)
+
+
+    //adds all items in cart for total price
+    useEffect(() => {
+      let price = 0;
+
+      for(let i = 0; i < cart.length; i++){
+        price += (+cart[i].price)
+      
+      }
+      //console.log("total price of cart", price.toFixed(2))
+      price = `$${price.toFixed(2)}`
+      setTotal(price)
+    }, [cart])
+
+
+
+
 
     async function handleDelete(id){
       console.log("id in Cart.js handleDelete", id)
@@ -67,6 +86,11 @@ function Cart({deleteFromCart}){
           </li>
         ))}
         </ol>
+
+        <div>
+          <p>Total: {total} </p>
+          <button>Checkout</button>
+        </div>
 
         </div>
     );

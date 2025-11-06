@@ -1,13 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import bootstrap from 'bootstrap'
 function Home(){
 
     return(
-        <div>
+        <div className="container-fluid">
             <h1>Welcome to Simply Buy</h1>
-            <h2>Where we make shopping fun and easy!</h2>
-            <div>
-                <div>
+            {/* <h2>Where we make shopping fun and easy!</h2> */}
+            <div id="carouselExample" class="carousel slide">
+             <div class="carousel-inner">
+                <div class="carousel-item active">
                     <h3>Electronics</h3>
                     <p> 
                         Stay ahead of the curve with our state-of-the-art electronics, 
@@ -18,7 +20,7 @@ function Home(){
                     </p>
                     <Link to="/products/electronics">Shop Now</Link>
                 </div>
-                <div>
+                <div className="carousel-item">
                     <h3>Jewelery</h3>
                     <p>
                     Discover pieces crafted from high-quality materials, including gold, silver, and precious gemstones, 
@@ -29,7 +31,7 @@ function Home(){
                     <Link to="/products/jewelery">Shop Now</Link>
                 </div>
 
-                <div>
+                <div className="carousel-item">
                    <h3>Men's Clothing</h3>
                    <p>
                    Our collection features premium fabrics and modern cuts, ensuring you look sharp 
@@ -40,7 +42,7 @@ function Home(){
                    </p>
                    <Link to="/products/men's%20clothing">Shop Now</Link>
                 </div>
-                <div>
+                <div className="carousel-item">
                    <h3>Women's Clothing</h3>
                    <p>
                    Discover our curated selection of high-quality fabrics, modern cuts, 
@@ -52,7 +54,16 @@ function Home(){
                    </p>
                    <Link to="/products/women's%20clothing">Shop Now</Link>
                 </div>
-            </div>
+             </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+         </div>
         </div>
     )
 }

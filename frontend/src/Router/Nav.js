@@ -7,28 +7,61 @@ function Navbar({isLoggedIn,logout}){
 
     if(isLoggedIn === false){
     return(
-        <nav>
-            <ul>
-                <Link to={'/'}>Home</Link>
-                <Link to={'/login'}>Login</Link>
-                <Link to={'/register'}>Register</Link>
-                <Link to={'/products'}>Products</Link>
-            </ul>
+            <nav class="navbar navbar-expand-sm bg-body-tertiary">
+             <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+              </button>
+             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                {/* <a class="navbar-brand" href="#">Hidden brand</a> */}
+                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <Link to={'/'} className="nav-link active" aria-current="page">Home</Link>
+                  </li>
 
-        </nav>
+                  <li class="nav-item">
+                    <Link to={'/login'} className="nav-link">Login</Link>
+                  </li>
+
+                  <li class="nav-item">
+                     <Link to={'/register'} className="nav-link">Register</Link>
+                  </li>
+                </ul>
+              </div>
+             </div>
+            </nav>
     )
 }
 
 
     return(
-        <nav>
-        <ul>
-            <Link to={'/'}>Home</Link> 
-            <Link to={'/cart'}>Cart</Link>
-            <Link to={'/products'}>Products</Link>
-            <Link  onClick={logout} to={'/'}>Logout</Link>
-        </ul>
-    </nav>
+               <nav class="navbar navbar-expand-sm bg-body-tertiary">
+             <div class="container-fluid">
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+              </button>
+             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                {/* <a class="navbar-brand" href="#">Hidden brand</a> */}
+                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <Link to={'/'} className="nav-link active" aria-current="page">Home</Link>
+                  </li>
+
+                  <li class="nav-item">
+                    <Link to={'/cart'} className="nav-link">Cart</Link>
+                  </li>
+
+                  <li class="nav-item">
+                     <Link to={'/products'} className="nav-link">Products</Link>
+                  </li>
+
+                  <li class="nav-item">
+                     <Link  onClick={logout} to={'/'} className="nav-link">Logout</Link>
+                  </li>
+                </ul>
+              </div>
+             </div>
+            </nav>
     )
 }
 

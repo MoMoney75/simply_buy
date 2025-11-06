@@ -10,6 +10,7 @@ import { BrowserRouter,Routes, Route } from "react-router-dom";
 import Skeleton from "../Router/Skeleton";
 import Navbar from "../Router/Nav";
 import {jwtDecode}from 'jwt-decode'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [products,setProducts] = useState([]);
@@ -90,7 +91,8 @@ function App() {
         }
 
     catch(err){
-      return {success: false, error:err}
+      console.log("Result in login at App.js:", err)
+      return ({success: false, err})
     }
   }
 

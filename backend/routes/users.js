@@ -3,22 +3,42 @@ const router = express.Router();
 const User = require('../models/users.js');
 const authenticateUser = require('../middleware/auth.js')
 const jwt = require('jsonwebtoken');
+const validate = require('../schema/user.js');
+const { error } = require('console');
 
 /* File is responsible for all routes and methods relating to the User
    Model (register, authenticate, delete, and logout) 
 */
 
 router.post('/register', async function(req,res,next){
-    const {first_name,last_name,username,password} = req.body;
 
     try{
     /* Add json schema authentication first to verify validations */
+
+        const {first_name,last_name,username,password} = req.body;
+        const isValid = validate({first_name,last_name,username,password});
+
+        if(!isValid){
+            const error = validate.errors.map(e => (e.instancePath, e.message))
+            console.log("This error is being thrown in !isValid on backend:", error)
+           
+            const result = res.status(400).json({
+                   success : false, 
+                   error: validate.errors.map(err => ({
+                   field: err.instancePath.replace('/', ''),
+                   message: err.message }))
+                })
+
+                return result
+            }
+
         const user = await User.Register(first_name,last_name,username,password)
+        console.log("new user registered:", first_name,last_name,username,password, user)
 
         const token = jwt.sign(user,'fakesecret')
-        return res.status(200).json({success : true, user, token})
+        return res.status(200).json({success : true, user, token})}
 
-    }
+
     catch(err){
         console.log("Error in /register on backend:", err)
         return next(err);
@@ -27,11 +47,14 @@ router.post('/register', async function(req,res,next){
 })
 
 router.post('/login', async function(req,res,next){
-    const {username, password} = req.body;
+   // const {username, password} = req.body;
 
     try{
-
+        const {username, password} = req.body;
         const user = await User.Authenticate(username,password)
+        // if(!user){
+        //     console.log("Error being thrown at login:", user)
+        // }
         const token = jwt.sign(user,'fakesecret', {expiresIn : '1h' })
         
         console.log("Decoded JWT created at login:", token, jwt.decode(token))
@@ -42,7 +65,7 @@ router.post('/login', async function(req,res,next){
       
     }
     catch(err){
-        console.log("Error in /login", err);
+        console.log("Error in /login on backend routes", err);
         return next(err)
     }
 })

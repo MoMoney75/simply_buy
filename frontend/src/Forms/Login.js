@@ -25,29 +25,47 @@ function Login({login, token}){
         const result = await login(formData);
         
         if(result.success !== true){
-            console.log("Result in error:", result)
-            setErrors([result.error])
+            console.log("Result in error at Login.js:", result.err)
+            const errors = result.err.map(e=> e.message)
+            setErrors([errors])
             setFormData(INITIAL_STATE)
             return;
         }
+
+
         setErrors([])
         navigate('/products')
         setFormData(INITIAL_STATE);
         return result;
     }
     return(
-        <div>
-            {errors.length > 0 && errors.map(e => <p>{e}</p>)}
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="username">username</label>
-                <input type="text" name="username" value={formData.username}  onChange={handleChange}/>
 
-                <label htmlFor="password">password</label>
-                <input type="password" name="password" value={formData.password}  onChange={handleChange}/>
+        
+  <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
+         
+  <div class="col-md-4">
 
-                <button type="submit">login</button>
-            </form>
-        </div>
+    <label for="validationCustom01" className="form-label">Username</label>
+      <input type="text" name="username" className="form-control" id="validationCustom01" 
+              value={formData.username} onChange={handleChange} required />
+      </div>
+
+  <div className="col-md-4">
+    <label for="validationCustom02" className="form-label">Password</label>
+    <input type="password" name="password" className="form-control" id="validationCustom02" 
+            value={formData.password} onChange={handleChange} required />
+  </div>
+
+  {errors.length > 0 && errors.map(e =>
+    <div> <p className="form-control is-invalid">{e}</p> </div>)}
+
+
+  <div className="col-12">
+    <button className="btn btn-primary" type="submit">Login</button>
+  </div>
+
+  
+</form>
     )
 }
 
