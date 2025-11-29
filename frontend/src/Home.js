@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import bootstrap from 'bootstrap'
+import './CSS/home.css'
 function Home(){
 
     return(
         <div className="container-fluid">
-            <h1>Welcome to Simply Buy</h1>
-            {/* <h2>Where we make shopping fun and easy!</h2> */}
+
+            { <p> Browse through hundreds of products with free shipping to anywhere in the USA!</p>}
             <div id="carouselExample" class="carousel slide">
              <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -18,7 +18,7 @@ function Home(){
                         and choose from our extensive collection to find the perfect tech 
                         solutions for your needs.
                     </p>
-                    <Link to="/products/electronics">Shop Now</Link>
+                    <button className="shop-now"><Link to="/products/electronics">Shop Now</Link> </button>
                 </div>
                 <div className="carousel-item">
                     <h3>Jewelery</h3>
@@ -54,7 +54,10 @@ function Home(){
                    </p>
                    <Link to="/products/women's%20clothing">Shop Now</Link>
                 </div>
+                
              </div>
+
+
               <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
@@ -62,8 +65,8 @@ function Home(){
             <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
                 <span class="carousel-control-next-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Next</span>
-            </button>
-         </div>
+            </button>   
+            </div>     
         </div>
     )
 }

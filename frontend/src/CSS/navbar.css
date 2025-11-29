@@ -1,0 +1,18 @@
+.nav-bar{
+    background-color: black!important;
+}
+
+.nav-bar-button {
+    color: #ffffff;
+    background-color: white;
+}
+
+.nav-link{
+    color: white !important;
+    font-weight: 600;
+}
+
+.navbar-toggler{
+    color: white !important;
+    box-shadow: none !important;
+}

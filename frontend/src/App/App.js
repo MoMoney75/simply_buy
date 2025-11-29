@@ -9,8 +9,11 @@ import { useNavigate } from "react-router-dom";
 import { BrowserRouter,Routes, Route } from "react-router-dom";
 import Skeleton from "../Router/Skeleton";
 import Navbar from "../Router/Nav";
+import Header from "../header";
 import {jwtDecode}from 'jwt-decode'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
+
 
 function App() {
   const [products,setProducts] = useState([]);
@@ -161,6 +164,7 @@ function App() {
 
     <div>
     <Navbar logout={logout} isLoggedIn={isLoggedIn}/>
+    <Header />
     <Skeleton  token={token} cart={cart} addToCart={addToCart} deleteFromCart={deleteFromCart}login={login} register={register} products={products}/>
     </div>
 

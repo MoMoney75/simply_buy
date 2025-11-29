@@ -47,6 +47,10 @@ function RegistrationForm({register}){
     return(
       
 <div>
+  <div  id="registerheader"  className="container-fluid">
+      <h2 className="h6">Please create an account to continue</h2>
+  </div>
+
         <form className="row g-3 needs-validation" onSubmit={handleSubmit} noValidate>
        
 

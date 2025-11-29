@@ -1,5 +1,8 @@
 import {React, useEffect, useState} from "react";
 import { useNavigate } from "react-router-dom";
+import '../CSS/form.css'
+
+
 function Login({login, token}){
     const navigate = useNavigate();
     const INITIAL_STATE = {
@@ -40,23 +43,29 @@ function Login({login, token}){
     }
     return(
 
-        
-  <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit}>
+ <div>
+  
+  <div  id="loginheader"  className="container-fluid">
+      <h2 className="h6">Please login to continue</h2>
+  </div>
+
+
+  <form className="row g-3 needs-validation  forms" noValidate onSubmit={handleSubmit}>
          
   <div class="col-md-4">
-
     <label for="validationCustom01" className="form-label">Username</label>
       <input type="text" name="username" className="form-control" id="validationCustom01" 
-              value={formData.username} onChange={handleChange} required />
-      </div>
+       value={formData.username} onChange={handleChange} required />
+   </div>
 
   <div className="col-md-4">
     <label for="validationCustom02" className="form-label">Password</label>
     <input type="password" name="password" className="form-control" id="validationCustom02" 
-            value={formData.password} onChange={handleChange} required />
+    value={formData.password} onChange={handleChange} required />
   </div>
 
-  {errors.length > 0 && errors.map(e =>
+
+    {errors.length > 0 && errors.map(e =>
     <div> <p className="form-control is-invalid">{e}</p> </div>)}
 
 
@@ -66,7 +75,6 @@ function Login({login, token}){
 
   
 </form>
-    )
-}
+</div>  )}
 
 export default Login;

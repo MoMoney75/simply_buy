@@ -1,7 +1,8 @@
 import axios from "axios";
 const API_URL = `https://fakestoreapi.com`;
 
-/* This file is responsible for handling all request to  "Platzi Fake Store API" */
+/* This file is responsible for handling all request to  
+"Platzi Fake Store API" */
 
 class productsAPi{
     static async request(endpoint,method='get',data={}){
@@ -41,10 +42,12 @@ class productsAPi{
         return result;
     }
 
-    static async allCategories(){
-        const result = await this.request('products/categories');
-        return result;
-    }
+
+    // ***does not work at them moment
+    // static async allCategories(){
+    //     const result = await this.request('products/categories');
+    //     return result;
+    // }
 
     static async getByCategory(category){
         const result = await this.request(`products/category/${category}`);

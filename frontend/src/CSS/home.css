@@ -1,0 +1,37 @@
+/* .carousel-control-next, .carousel-control-prev {
+    color: red !important;
+    background-color: red !important;
+    background: RED !important;
+    height: fit-content !important;
+    padding: 0 !important;
+    margin-top: 14em;
+
+}  */
+/* 
+.shop-now{
+position: absolute;
+top: 11em;
+} */
+
+
+
+.carousel-control-next, .carousel-control-prev{
+    position: absolute;
+    top: auto !important;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    height: min-content !important;
+    width: 15%;
+    padding: 0;
+    color:red Im !important ;
+    text-align: center;
+    background: red !important;
+   
+}
+
+#carouselExample {
+    height: 60vh;
+}

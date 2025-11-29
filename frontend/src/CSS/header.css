@@ -1,0 +1,9 @@
+#shoplyheader {
+color : white;
+background-color: rgb(126, 75, 8);
+}
+
+#shoplyheader > h1 {
+padding: 0.5em ;
+text-align: center;
+}
