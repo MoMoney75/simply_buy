@@ -37,10 +37,9 @@ router.post('/add', authenticateUser, async function(req,res,next){
         } = req.body;
 
     try{
-
     const result = await Wishlist.add(item_id,price,quantity,image,category,user.user_id,title)
     console.log("Attempting to add item to wishlist on backend /add:", result)
-    return res.status(200).json({success: true, result})
+    return res.status(200).json({success: true, result,})
     }
 
     catch(err){
@@ -52,10 +51,10 @@ router.post('/add', authenticateUser, async function(req,res,next){
 router.post('/delete', authenticateUser, async function(req,res,next){
     const user = req.user
     console.log("user in wishlist /delete in route handler:", user.user_id)
-    const item_id = req.body.item_id;
+    const {wishlist_itemid} = req.body;
 
     try{
-        const result = await Wishlist.delete(user.user_id,item_id);
+        const result = await Wishlist.delete(user.user_id,wishlist_itemid);
         console.log("Result in deleting item from cart:", result)
         return res.status(200).json({success:true, result})
     }

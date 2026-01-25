@@ -13,12 +13,14 @@ import Header from "../header";
 import {jwtDecode}from 'jwt-decode'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
+import ProductCard from "../ProductCard";
+
 
 
 function App() {
   const [products,setProducts] = useState([]);
   const [isLoggedIn, setLoggedIn] = useState(false);
-  const [cart, setCart] = useState([]);
+  //const [cart, setCart] = useState([]);
   const [token, setToken] = useState(null)
   const user_id = sessionStorage.user_id;
 
@@ -55,15 +57,15 @@ function App() {
 
  
 
-    useEffect(()=> {
-      async function fetchCart(){
+    // useEffect(()=> {
+    //   async function fetchCart(){
        
-        const result = await wishlistAPI.get();
-        console.log("cart in app.js:", result)
-          setCart(result.result);
-        }
-        fetchCart();
-      },[]);
+    //     const result = await wishlistAPI.get();
+    //     console.log("cart in app.js:", result)
+    //       setCart(result.result);
+    //     }
+    //     fetchCart();
+    //   },[]);
   
  
 
@@ -143,14 +145,14 @@ function App() {
     }
   }
 
-  async function deleteFromCart(id) {
+  async function deleteFromCart({wishlist_itemid}) {
 
-  //  we have access to item id from cart array
+  //  we have access to wishlist_itemID from cart array
   // 
-    const item_id = +id;
-    console.log("item id in app.js", item_id)
+  // const wishlist_itemID = +id;
+    console.log("item id in app.js", wishlist_itemid)
     try{
-        const result = await wishlistAPI.delete({item_id})
+        const result = await wishlistAPI.delete({wishlist_itemid})
         console.log("result in app.js deletefromCart:", result)
         return ({success: true, result})
     }
@@ -165,7 +167,10 @@ function App() {
     <div>
     <Navbar logout={logout} isLoggedIn={isLoggedIn}/>
     <Header />
-    <Skeleton  token={token} cart={cart} addToCart={addToCart} deleteFromCart={deleteFromCart}login={login} register={register} products={products}/>
+    <Skeleton  token={token} addToCart={addToCart} 
+               deleteFromCart={deleteFromCart}
+               login={login} register={register} 
+               products={products}/>
     </div>
 
   );

@@ -20,7 +20,7 @@ useEffect(()=>{
 
   return(
     <div>
-    <h1>Here are your products by category</h1>
+    <h1>Here are your products by category that you selected</h1>
         {items.map((product =>(
         <ol>            
             <li key={product.id}>
@@ -51,7 +51,9 @@ useEffect(()=>{
             }}>Add to cart</button>
           </li>
         </ol>
+        
         )))}
+       
     </div>
   )
 }

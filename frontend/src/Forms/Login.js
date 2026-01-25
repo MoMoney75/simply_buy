@@ -52,14 +52,14 @@ function Login({login, token}){
 
   <form className="row g-3 needs-validation  forms" noValidate onSubmit={handleSubmit}>
          
-  <div class="col-md-4">
-    <label for="validationCustom01" className="form-label">Username</label>
+  <div className="col-md-4">
+    <label htmlFor="validationCustom01" className="form-label">Username</label>
       <input type="text" name="username" className="form-control" id="validationCustom01" 
        value={formData.username} onChange={handleChange} required />
    </div>
 
   <div className="col-md-4">
-    <label for="validationCustom02" className="form-label">Password</label>
+    <label htmlFor="validationCustom02" className="form-label">Password</label>
     <input type="password" name="password" className="form-control" id="validationCustom02" 
     value={formData.password} onChange={handleChange} required />
   </div>

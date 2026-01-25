@@ -4,7 +4,7 @@ import './CSS/header.css'
 function Header(){
 return (
   <div  id="shoplyheader" className='container-fluid'>
-    <h1>Welcome to Simply Buy</h1>
+    <h1>Simply Buy</h1>
   </div>
 )
 

@@ -1,15 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import './CSS/home.css'
+import { useNavigate } from "react-router-dom";
 function Home(){
+
+    const token = localStorage.getItem('token')
+    const navigate = useNavigate();
+
+
 
     return(
         <div className="container-fluid">
 
             { <p> Browse through hundreds of products with free shipping to anywhere in the USA!</p>}
-            <div id="carouselExample" class="carousel slide">
-             <div class="carousel-inner">
-                <div class="carousel-item active">
+            <div id="carouselExample" className="carousel slide">
+             <div className="carousel-inner">
+                <div className="carousel-item active">
                     <h3>Electronics</h3>
                     <p> 
                         Stay ahead of the curve with our state-of-the-art electronics, 
@@ -18,7 +23,7 @@ function Home(){
                         and choose from our extensive collection to find the perfect tech 
                         solutions for your needs.
                     </p>
-                    <button className="shop-now"><Link to="/products/electronics">Shop Now</Link> </button>
+
                 </div>
                 <div className="carousel-item">
                     <h3>Jewelery</h3>
@@ -28,7 +33,7 @@ function Home(){
                     seeking the perfect gift, or simply treating yourself, our Jewelry collection features designs that 
                     combine classic beauty with contemporary flair.
                     </p>
-                    <Link to="/products/jewelery">Shop Now</Link>
+
                 </div>
 
                 <div className="carousel-item">
@@ -40,7 +45,7 @@ function Home(){
                    and design. Elevate your wardrobe with versatile pieces that offer both style 
                    and functionality, helping you make a lasting impression wherever you go.
                    </p>
-                   <Link to="/products/men's%20clothing">Shop Now</Link>
+
                 </div>
                 <div className="carousel-item">
                    <h3>Women's Clothing</h3>
@@ -52,21 +57,30 @@ function Home(){
                    and versatility. Embrace your unique style and find the perfect outfits 
                    to express yourself with confidence.
                    </p>
-                   <Link to="/products/women's%20clothing">Shop Now</Link>
+
                 </div>
-                
+                <div className="shop-now">
+
+{token === null ? <button className='btn btn-primary' onClick={()=>navigate("/login")}>Shop now </button>
+    : 
+<button className='btn btn-primary' onClick={()=>navigate('/products')}>Shop now </button> }
+</div>    
              </div>
-
-
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+             
+          <div>
+              <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                 <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>   
-            </div>     
+              </button>
+
+              <button className="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                <span className="visually-hidden">Next</span>
+              </button>   
+            </div>  
+          
+          </div>
+          
         </div>
     )
 }

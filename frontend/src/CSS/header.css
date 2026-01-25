@@ -1,9 +1,11 @@
 #shoplyheader {
-color : white;
-background-color: rgb(126, 75, 8);
+    width: max-content;
+    border: 0;
+    border-bottom: 1px solid black;
 }
 
 #shoplyheader > h1 {
+margin: 0;
 padding: 0.5em ;
 text-align: center;
 }

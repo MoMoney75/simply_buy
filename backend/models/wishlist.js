@@ -30,16 +30,15 @@ class Wishlist {
     }
 
     /* Deletes an item from a user's wishlist */
-    static async delete(user_id,item_id){
+    static async delete(user_id,wishlist_itemid){
         const result = await db.query(`DELETE FROM wishlist_items WHERE user_id = $1
-                                        AND item_id = $2 RETURNING *`, [user_id,item_id])
+                                        AND wishlist_itemID = $2 RETURNING *`, [user_id,wishlist_itemid])
 
 
-        if(result.rows.length < 1){
-            throw new Error("deleting item in models")
-        }
+        // if(result.rows.length < 1){
+        //     throw new Error("deleting item in models")
+        // }
         return result.rows[0]
-
     }
 
     /* Sort's user's wishlist by price, ascending */
