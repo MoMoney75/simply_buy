@@ -1,6 +1,7 @@
 import React, {useState, useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import UserConext from '../App/App'
+import '../CSS/form.css'
 
 function RegistrationForm({register}){
     const navigate = useNavigate();
@@ -45,93 +46,99 @@ function RegistrationForm({register}){
 
     
     return(
-      
-<div>
-  <div  id="registerheader"  className="container-fluid">
-      <h2 className="h6">Please create an account to continue</h2>
-  </div>
+        <div id="login-container">
+            <div  id="registerheader" className="container-fluid">
+                <h1 className="h6">Please create an account to continue</h1>
+            </div>
+            
+            <form className="row g-3 needs-validation" 
+                  onSubmit={handleSubmit} 
+                  noValidate>
 
-        <form className="row g-3 needs-validation" onSubmit={handleSubmit} noValidate>
-       
+            <div class="col-md-4">
 
- <div class="col-md-4">
- {errors.length > 0 && errors.map(e => <p>{e}</p>)}
+                {errors.length > 0 && errors.map(e => 
+                <div className="form-control is-invalid">
+                    <p>{e}</p>
+                </div>)}
+            
+                <label for="validationCustom01" 
+                   className="form-label">
+                    First Name
+                </label>
+            
+                <input 
+                    type="text" 
+                    name="first_name" 
+                    className={`form-control ${errors.first_name ? 'is-invalid' : ''}`}
+                    id="validationCustom01" 
+                    value={formData.first_name} onChange={handleChange} required/>
+                {errors.first_name && (
+                <div className="invalid-feedback">
+                    {errors.first_name}
+                </div>)}
 
-   <label for="validationCustom01" className="form-label">First Name</label>
-     <input 
-            type="text" 
-            name="first_name" 
-            className={`form-control ${errors.first_name ? 'is-invalid' : ''}`}
-            id="validationCustom01" 
-            value={formData.first_name} onChange={handleChange} required/>
+                </div>
 
-        {errors.first_name && (
-        <div className="invalid-feedback">
-        {errors.first_name}
-    </div>
-  )}
+            <div className="col-md-4">
+                <label for="validationCustom02" 
+                       className="form-label">Last Name
+                </label>
 
-     </div>
-
- <div className="col-md-4">
-   <label for="validationCustom02" className="form-label">Last Name</label>
-   <input 
-    type="text" 
-    name="last_name" 
-    className={`form-control ${errors.last_name ? 'is-invalid' : ''}`}
-    id="validationCustom02"
-    value={formData.last_name} onChange={handleChange} required />
-
-
-{errors.last_name && (
-        <div className="invalid-feedback">
-        {errors.last_name}
-    </div>
-  )}
- </div>
-
-
- <div className="col-md-4">
-   <label for="validationCustom02" className="form-label">Username</label>
-   <input 
-    type="text" 
-    name="username" 
-    className={`form-control ${errors.username ? 'is-invalid' : ''}`}
-    id="validationCustom02" 
-    value={formData.username} onChange={handleChange} required />
-
-    {errors.username && (
-        <div className="invalid-feedback">
-        {errors.username}
-    </div>
-  )}
-
-    
- </div>
+                <input type="text" 
+                       name="last_name" 
+                       className={`form-control ${errors.last_name ? 'is-invalid' : ''}`}
+                       id="validationCustom02"
+                       value={formData.last_name} onChange={handleChange} required />
 
 
- <div class="col-md-4">
-   <label for="validationCustom02" className="form-label">Password</label>
-   <input 
-    type="password" 
-    name="password" 
-    className={`form-control ${errors.password ? 'is-invalid' : ''}`}
-    id="validationCustom02" 
-    value={formData.password} onChange={handleChange} required />
+                {errors.last_name && (
+                    <div className="invalid-feedback">
+                    {errors.last_name}
+                </div>)}
+            </div>
 
-    {errors.password && (
-        <div className="invalid-feedback">
-        {errors.password}
-    </div>)}
+            
+            <div className="col-md-4">
+                <label for="validationCustom02" className="form-label">
+                    Username
+                </label>
 
- </div>
+                <input type="text" 
+                       name="username" 
+                       className={`form-control ${errors.username ? 'is-invalid' : ''}`}
+                       id="validationCustom02" 
+                       value={formData.username} onChange={handleChange} required />
 
- <div className="col-12">
-   <button className="btn btn-primary" type="submit">Register</button>
- </div>
-</form>
-</div>
-    )
-}
+                {errors.username && (
+                     <div className="invalid-feedback">
+                        {errors.username}
+                     </div>)}
+            </div>
 
-export default RegistrationForm;
+
+            <div class="col-md-4">
+                <label for="validationCustom02" className="form-label">
+                    Password
+                </label>
+            <input type="password" 
+                   name="password" 
+                   className={`form-control ${errors.password ? 'is-invalid' : ''}`}
+                   id="validationCustom02" 
+                   value={formData.password} onChange={handleChange} required />
+            
+            {errors.password && (
+                <div className="invalid-feedback">
+                    {errors.password}
+                </div>)}
+            </div>
+
+            <div className="submit-form-div">
+                <button className="btn form-btn" type="submit">
+                    Register
+                </button>
+            </div>
+            </form>
+        </div>)}
+
+        export default RegistrationForm;

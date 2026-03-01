@@ -17,11 +17,13 @@ useEffect(()=>{
     getById();
 },[id]);
 
+
+if(document.URL.includes('/products/product')){
 return (
 
-    <div className="container text-center">
+    <div className="container-fluid text-center details-container products-container">
            <div>
-                <ProductCard 
+                <ProductCard
                   key={product.id}
                   item_id={product.id}
                   title={product.title}
@@ -35,6 +37,7 @@ return (
             </div>
     </div>
     )}
+}
 
 
 export default ProductDetails;

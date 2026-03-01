@@ -72,6 +72,17 @@ function App() {
   async function register(data){
     try{
       const result = await userAPI.register(data);
+      const token = result.token
+      const decodedToken = jwtDecode(token)
+      const expireTime = decodedToken.exp * 1000;
+
+              
+        localStorage.setItem('token',token)
+        localStorage.setItem('token_expiration', expireTime)
+
+          setToken(token)
+          setLoggedIn(true)
+          console.log("local storage set on registration:", localStorage)
       return ({success: true, result})
     }
     catch(err){
@@ -91,7 +102,7 @@ function App() {
       
           setToken(token)
           setLoggedIn(true)
-      
+          console.log("local storage set on login:", localStorage)
             return ({success: true, result})
         }
 
@@ -164,9 +175,9 @@ function App() {
 
   return (
 
-    <div>
+    <div id="app-div">
     <Navbar logout={logout} isLoggedIn={isLoggedIn}/>
-    <Header />
+    {/* <Header /> */}
     <Skeleton  token={token} addToCart={addToCart} 
                deleteFromCart={deleteFromCart}
                login={login} register={register} 

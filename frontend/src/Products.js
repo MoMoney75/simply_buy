@@ -26,24 +26,25 @@ const handleChange = (category) => {
 
 return(
       <div>
-          <div className="container text-center">
-            <select className="form-select form-select-sm" size="5" name="category" 
+          <div id="select-container"> 
+            <select className="form-select form-select-sm" size="1" name="category"
               id="categorySelect" 
               value={Selected} 
               onChange={(e) => handleChange(e.target.value)}>
 
-                <option value="all">All</option>
-                <option value="electronics">Electronics</option>
-                <option value="men's Clothing">Men's Clothing</option>
-                <option value="jewelery">Jewelery</option>
-                <option value="women's Clothing">Women's Clothing</option>
+               <option className="option"value="all">All</option>
+               <option className="option"value="electronics">Electronics</option>
+               <option className="option"value="men's Clothing">Men's Clothing</option>
+               <option className="option"value="jewelery">Jewelery</option> 
+               <option className="option"value="women's Clothing">Women's Clothing</option>
 
-            </select>
-          </div>
+             </select>
 
+            </div>
+            
         {Selected !== "all" ? (
-          <div className="container text-center">
-           <div className="row row-cols row-cols-md-2 products-list">
+          <div className="container-fluid text-center">
+           <div className="row row-cols-2 row-cols-md-2  align-items-stretch products-list">
              
             {filtered.map(product => (
               <ProductCard
@@ -63,8 +64,8 @@ return(
           
            :(
 
-    <div className="container text-center">
-      <div className="row row-cols row-cols-md-2 products-list">
+    <div className="container-fluid text-center">
+      <div className="row row-cols-2 row-cols-md-2 products-list">
 
         {products.map(product => (
          <ProductCard
@@ -80,7 +81,8 @@ return(
           addToCart={addToCart}/> ))}
        </div>
     </div>)}
-      </div> )}
+      </div>
+     )}
 
 
 

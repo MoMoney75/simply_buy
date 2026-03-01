@@ -1,24 +1,22 @@
-.nav-bar{
-    background-color: black!important;
-}
 
-.nav-bar-button {
+/* .nav-bar-button {
     color: #ffffff;
     background-color: white;
-}
+} */
 
 .nav-link{
-    color: white !important;
     font-weight: 600;
 }
 
 .navbar-toggler{
     padding: 0 !important;
-    color: white !important;
-    box-shadow: none !important;
 }
 
 .navbar{
     padding-top: 0 !important;
     padding-bottom: 0 !important;
+}
+
+.navbar-brand{
+    align-items: end;
 }

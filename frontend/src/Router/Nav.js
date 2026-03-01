@@ -12,7 +12,7 @@ function Navbar({isLoggedIn,logout}){
 
             <nav className="navbar navbar-expand-sm bg-body-tertiary">
              <div className="nav-bar container-fluid">
-
+              <span className="navbar-brand mb-0 h1">Simply Buy</span>
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
               data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" 
               aria-expanded="false" aria-label="Toggle navigation">
@@ -42,17 +42,18 @@ function Navbar({isLoggedIn,logout}){
     )
 }
 
-
-    return(
+return(
 
                <nav className="navbar navbar-expand-sm bg-body-tertiary">
              <div className="nav-bar container-fluid">
+              <span className="navbar-brand mb-0 h1">Simply Buy</span>
               <button className="navbar-toggler" type="button" data-bs-toggle="collapse" 
               data-bs-target="#navbarTogglerDemo01" 
               aria-controls="navbarTogglerDemo01" aria-expanded="false" 
               aria-label="Toggle navigation">
                <span className="nav-bar-button navbar-toggler-icon"></span>
               </button>
+              
              <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
                 {/* <a class="navbar-brand" href="#">Hidden brand</a> */}
                  <ul className="navbar-nav me-auto mb-2 mb-lg-0">

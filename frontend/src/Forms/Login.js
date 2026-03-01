@@ -35,46 +35,60 @@ function Login({login, token}){
             return;
         }
 
-
         setErrors([])
         navigate('/products')
         setFormData(INITIAL_STATE);
-        return result;
-    }
+        return result;}
     return(
 
- <div>
-  
-  <div  id="loginheader"  className="container-fluid">
-      <h2 className="h6">Please login to continue</h2>
-  </div>
+        <div id="login-container">
+            <div  id="loginheader"  className="container-fluid">
+                <h1 className="h6">Please login to continue </h1>
+            </div>
+            
+            <form className="row g-3 needs-validation forms" 
+                  noValidate onSubmit={handleSubmit}>
 
-
-  <form className="row g-3 needs-validation  forms" noValidate onSubmit={handleSubmit}>
          
-  <div className="col-md-4">
-    <label htmlFor="validationCustom01" className="form-label">Username</label>
-      <input type="text" name="username" className="form-control" id="validationCustom01" 
-       value={formData.username} onChange={handleChange} required />
-   </div>
+                
+                <div className="col-md-4">
+                    <label htmlFor="validationCustom01" 
+                       className="form-label">
+                       Username
+                    </label>
 
-  <div className="col-md-4">
-    <label htmlFor="validationCustom02" className="form-label">Password</label>
-    <input type="password" name="password" className="form-control" id="validationCustom02" 
-    value={formData.password} onChange={handleChange} required />
-  </div>
+                    <input type="text" 
+                       name="username" 
+                       className="form-control" 
+                       id="validationCustom01" 
+                       value={formData.username} 
+                       onChange={handleChange} required/>
+                </div>
 
+            <div className="col-md-4">
 
-    {errors.length > 0 && errors.map(e =>
-    <div> <p className="form-control is-invalid">{e}</p> </div>)}
+            <label htmlFor="validationCustom02" 
+                   className="form-label"> Password
+            </label>
 
+            <input type="password" 
+                   name="password" 
+                   className="form-control" 
+                   id="validationCustom02" 
+                   value={formData.password} 
+                   onChange={handleChange} required />
+            </div>
 
-  <div className="col-12">
-    <button className="btn btn-primary" type="submit">Login</button>
-  </div>
+           {errors.length > 0 && errors.map(e =>
+            <div> 
+                <p style={{color:"red"}}>{e}</p>
+            </div>)}
 
-  
-</form>
-</div>  )}
+            
+            <div className="submit-form-div">
+                <button className="btn form-btn" type="submit">Login</button>
+            </div>
+            </form>
+        </div>  )}
 
-export default Login;
+    export default Login;
