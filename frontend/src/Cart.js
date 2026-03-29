@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import wishlistAPI from "./APIs/wishlistAPI";
 import CartCard from "./CartCard";
+import './CSS/products.css'
 
 function Cart({deleteFromCart}){
       const [cart, setCart] = useState([]);
@@ -58,8 +59,8 @@ function Cart({deleteFromCart}){
        {errors && errors.map((e) =>(<p> {e}</p>))}
         {message && <p>{message}</p>} 
 
-        <div className="container text-center">
-          <div>
+        <div className="container-fluid text-center">
+      <div className="row row-cols-2 row-cols-md-2 products-list">
         {cart.map(product =>(
              <CartCard 
                key={product.wishlist_itemid}
@@ -72,9 +73,10 @@ function Cart({deleteFromCart}){
          </div>
         </div>
 
-        <div>
-          <p>Total: {total} </p>
-          <button>Checkout</button>
+        <div className="btn-div" id="checkout-div">
+        <p className="h4" id="total-checkout">Total: {total} </p>
+          <button className="btn btn-success" id="checkout-btn">Checkout</button>
+            
         </div>
 
         </div>

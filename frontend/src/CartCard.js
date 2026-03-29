@@ -3,23 +3,26 @@ import './CSS/products.css'
 function CartCard({deleteFromCart,wishlist_itemid,price,quantity=1,image,title}){
 
     return(
-        <div>
-            <li className="product-container">
-                <h3>{title}</h3>
-                <img
-                    src={image}
-                    alt={title}
-                    width={100}
-                    height={100}/>
+        <div className='col'>
+            <div className="product-container">
+                <div id='image-container'>
+                    <img src={image} alt={title}/>
+                </div>
+
+                <div id="title-div">
+                    <h1>{title}</h1>
+                </div>
+    
                 <div> quantity: {quantity} </div>
-                <div>total: ${price}</div>
-                
+                <span id='price-div'>${price}</span>
+                <div className='btn-div'>
                 <button 
                     type='button'
-                    className=' btn btn-outline-danger'
+                    className=' btn products-btn btn-outline-danger'
                     onClick={()=>deleteFromCart({wishlist_itemid})}>Remove
                 </button>
-            </li>
+                </div>
+            </div>
         </div>
     )
 

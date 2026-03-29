@@ -9,9 +9,8 @@ function ProductCard({addToCart,category,user_id,item_id,title,image,rating=0,co
     function redirectTo(address){ return navigate(address) } 
 
     return(
-    
             <div className="col">
-                <div className="product-container">
+                <div className={isDetailsPage ? "product-container detailsPage" : "product-container"}>
                     <div id="image-container">
                         <img src={image} alt={title}/>
                     </div>
@@ -26,7 +25,7 @@ function ProductCard({addToCart,category,user_id,item_id,title,image,rating=0,co
                         </div> : null }
 
                     
-                                     <span id="price-div"> ${price} </span>
+                    <span id="price-div"> ${price} </span>
 
                     <div className="btn-div">
                         
