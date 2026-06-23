@@ -42,6 +42,7 @@
     width: 50%;
     border: 2px solid black;
     background-color: rgba(241, 198, 6, 0.465) !important;
+    font-weight: bolder !important;
 }
 
 .submit-form-div{

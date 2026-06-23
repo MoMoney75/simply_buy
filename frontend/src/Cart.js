@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import wishlistAPI from "./APIs/wishlistAPI";
 import CartCard from "./CartCard";
 import './CSS/products.css'
+import { useNavigate } from "react-router-dom";
 
 function Cart({deleteFromCart}){
       const [cart, setCart] = useState([]);
       const [errors, setError] = useState([])
       const [message, setMessage] = useState('')
       const [total, setTotal] = useState(0);
-
+      const navigate = useNavigate();
       useEffect(()=> {
 
           async function fetchCart(){
@@ -50,14 +51,16 @@ function Cart({deleteFromCart}){
       
     
     }
+    
+    const handleCheckout= ()=>{
+        navigate('/checkout')
+    }
 
     return(
 
       <div>
-        <h1>Here is your cart!</h1>
-
-       {errors && errors.map((e) =>(<p> {e}</p>))}
-        {message && <p>{message}</p>} 
+       {errors && errors.map((e) =>(<p style={{color: 'red'}}> {e}</p>))}
+        {message && <p style={{color: 'red'}}>{message}</p>} 
 
         <div className="container-fluid text-center">
       <div className="row row-cols-2 row-cols-md-2 products-list">
@@ -74,8 +77,10 @@ function Cart({deleteFromCart}){
         </div>
 
         <div className="btn-div" id="checkout-div">
-        <p className="h4" id="total-checkout">Total: {total} </p>
-          <button className="btn btn-success" id="checkout-btn">Checkout</button>
+        <p className="h4" id="total-checkout">Total:{total} </p>
+          <button className="btn btn-success" 
+                  id="checkout-btn"
+                  onClick={handleCheckout}>Checkout</button>
             
         </div>
 

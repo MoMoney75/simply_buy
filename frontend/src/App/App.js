@@ -5,7 +5,7 @@ import wishlistAPI from "../APIs/wishlistAPI";
 import historyAPI from "../APIs/historyAPI";
 import RegistrationForm from "../Forms/Register";
 import LoginForm from "../Forms/Login";
-import { useNavigate } from "react-router-dom";
+import { redirect, useNavigate } from "react-router-dom";
 import { BrowserRouter,Routes, Route } from "react-router-dom";
 import Skeleton from "../Router/Skeleton";
 import Navbar from "../Router/Nav";
@@ -14,15 +14,17 @@ import {jwtDecode}from 'jwt-decode'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import ProductCard from "../ProductCard";
-
+import {Usenavigate} from "react-router-dom"
 
 
 function App() {
+  
   const [products,setProducts] = useState([]);
   const [isLoggedIn, setLoggedIn] = useState(false);
   //const [cart, setCart] = useState([]);
   const [token, setToken] = useState(null)
   const user_id = sessionStorage.user_id;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -30,13 +32,11 @@ function App() {
 
     if(token && expirationTime){
       const currentTime = Date.now();
-
-  
-
       if(currentTime > expirationTime){
         localStorage.removeItem('token');
         localStorage.removeItem('token_expiration')
         setLoggedIn(false)
+        navigate('/login')
         console.log("WARNING, TOKEN EXPIRED, USER LOGGED OUT")
       }
 
@@ -174,14 +174,13 @@ function App() {
   }
 
   return (
-
     <div id="app-div">
-    <Navbar logout={logout} isLoggedIn={isLoggedIn}/>
-    {/* <Header /> */}
-    <Skeleton  token={token} addToCart={addToCart} 
-               deleteFromCart={deleteFromCart}
-               login={login} register={register} 
-               products={products}/>
+      <Navbar logout={logout} isLoggedIn={isLoggedIn}/>
+
+      <Skeleton token={token} addToCart={addToCart} 
+                deleteFromCart={deleteFromCart}
+                login={login} register={register} 
+                products={products}/>
     </div>
 
   );

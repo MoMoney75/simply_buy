@@ -6,6 +6,7 @@ import Home from "../Home";
 import CategoriesPage from "../Categories";
 import ProductDetails from "../Details";
 import Cart from "../Cart";
+import Checkout from "../Checkout";
 
 
 function Skeleton({token,login, register,products, addToCart, deleteFromCart}){
@@ -20,6 +21,7 @@ function Skeleton({token,login, register,products, addToCart, deleteFromCart}){
             <Route path="/products" element={<Products addToCart={addToCart} products={products}/>}/>
             <Route path="/products/:category" element={<CategoriesPage addToCart={addToCart} />} />
             <Route path="/products/product/:id" element={<ProductDetails addToCart={addToCart}/>} />
+            <Route path="/checkout" element={<Checkout />} />
         </Routes>
 
     )

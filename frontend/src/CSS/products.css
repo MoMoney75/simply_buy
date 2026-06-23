@@ -10,8 +10,8 @@
     align-items: center;
     width: 100%;
     height: 17em;
-    margin-top: 0.1em;
-    margin-bottom: 0.1em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
     margin-left: 0.1em;
     margin-right: 0.1em;
     border: 2px 2px 2px 2px solid black;
@@ -180,14 +180,13 @@ font-weight: 500;
     background-color:rgba(174, 192, 132, 0.72) ;
     display: flex;
     flex-direction: column;
-    height: 100vh!important;
-    width: 100vw !important;
+    /* height: 100vh!important; */
+    /* width: 100vw !important; */
 }
 
 #checkout-div{
     display: flex;
     flex-direction: row;
-    align-items: center;
     background-color: rgba(52, 241, 52, 0.509);
     margin-top: 0;
     margin-bottom: 0;
