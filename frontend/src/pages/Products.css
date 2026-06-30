@@ -1,0 +1,30 @@
+.products-toolbar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .products-toolbar {
+    flex-direction: column;
+  }
+
+  .products-toolbar .search-input,
+  .products-toolbar .category-dropdown {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .search-input {
+    min-width: 200px;
+  }
+}

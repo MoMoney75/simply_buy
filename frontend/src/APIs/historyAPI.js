@@ -1,30 +1,41 @@
-import axios from "axios";
-import BASE_URL from "../db";
+import axios from 'axios';
+import BASE_URL from '../db';
 
 class historyAPI {
-    static async request(endpoint, data={}, method='get'){
-        const url = `${BASE_URL}/${endpoint}`
-        const params = (method === 'get') ? data : {};
-         try{
-            const result = (await axios({url, data,method,params})).data;
-            return result;
-         }
-         catch(err){
-            console.log("Error making request in historyAPI:".err)
-         }
+  static async request(endpoint, data = {}, method = 'get') {
+    const url = `${BASE_URL}/${endpoint}`;
+    const token = localStorage.getItem('token');
+
+    const headers = { 'Content-Type': 'application/json' };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
     }
 
-    static async add(data){
-        const result = await this.request('history',data,'post');
-        console.log("Result in adding items to history, frontend:", result);
-        return result;
+    try {
+      const result = (
+        await axios({
+          url,
+          method,
+          data: method !== 'get' ? data : undefined,
+          params: method === 'get' ? data : undefined,
+          headers,
+        })
+      ).data;
+      return result;
+    } catch (err) {
+      const message = err.response?.data?.error || err.message;
+      console.error('Error in historyAPI:', message);
+      throw message;
     }
+  }
 
-    static async sortData(filter){
-        const result = await this.request('history', filter, 'get');
-        console.log(`Result fetching filtered history data using filter ${filter}:`, result);
-        return result;
-    }
+  static async add(data) {
+    return this.request('history', data, 'post');
+  }
+
+  static async sortData(filter) {
+    return this.request('history', filter, 'get');
+  }
 }
 
 export default historyAPI;
